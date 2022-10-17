@@ -1,9 +1,9 @@
 package com.example.prolect4_test1.game;
 
-import com.example.prolect4_test1.user.User;
+import com.example.prolect4_test1.genre.Genre;
+import com.example.prolect4_test1.genre.GenreRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -11,17 +11,26 @@ import java.util.List;
 public class GameService {
 
     private final GameRepo gameRepo;
+    private final GenreRepo genreRepo;
 
     @Autowired
-    public GameService(GameRepo gameRepo) {
+    public GameService(GameRepo gameRepo, GenreRepo genreRepo) {
         this.gameRepo = gameRepo;
+        this.genreRepo = genreRepo;
     }
 
     public List <Game> getGames(){return gameRepo.findAll();}
 
-    public Game getGameName (String name){return gameRepo.findByName(name);}
+//    public Game getGameName (String name){return gameRepo.findByName(name);}
 
-    public Game addGame(Game game){return gameRepo.save(game);}
+    public Game getGameId (String id){
+        Long id_Game = Long.parseLong(id);
+        return gameRepo.findById(id_Game).orElse(null);
+    }
+
+    public Game addGame(Game game){
+
+        return gameRepo.save(game);}
 
     public void updateGame(String id, Game data){
         Long game_id = Long.parseLong(id);

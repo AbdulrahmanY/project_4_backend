@@ -1,8 +1,10 @@
 package com.example.prolect4_test1.game;
 
-import com.example.prolect4_test1.game_genre.Game_Genre;
+
 import com.example.prolect4_test1.genre.Genre;
+import com.example.prolect4_test1.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,14 +24,23 @@ public class Game {
     private Boolean xbox=false;
     private String release_data;
     private String img;
+    private String developer;
+    private String publisher;
     @Column(name = "description",length = 3000)
     private String description;
 
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinColumn(name = "id_Genre")
+    private List<Genre> genre=new ArrayList<>();
+
+    @JsonIgnoreProperties("game")
+    @OneToMany(mappedBy = "game",cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
     public Game() {
     }
 
-    public Game(Long id_Game, String name, Boolean pc, Boolean ps, Boolean xbox, String release_data, String img, String description) {
+    public Game(Long id_Game, String name, Boolean pc, Boolean ps, Boolean xbox, String release_data, String img, String developer, String publisher, String description, List<Genre> genre, List<Review> reviews) {
         this.id_Game = id_Game;
         this.name = name;
         this.pc = pc;
@@ -37,8 +48,11 @@ public class Game {
         this.xbox = xbox;
         this.release_data = release_data;
         this.img = img;
+        this.developer = developer;
+        this.publisher = publisher;
         this.description = description;
-        //this.game_genres = game_genres;
+        this.genre = genre;
+        this.reviews = reviews;
     }
 
     public Long getId_Game() {
@@ -105,11 +119,35 @@ public class Game {
         this.xbox = xbox;
     }
 
-//    public List<Game_Genre> getGame_genres() {
-//        return game_genres;
-//    }
-//
-//    public void setGame_genres(List<Game_Genre> game_genres) {
-//        this.game_genres = game_genres;
-//    }
+    public List<Genre> getGenre() {
+        return genre;
+    }
+
+    public void setGenre(List<Genre> genre) {
+        this.genre = genre;
+    }
+
+    public String getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(String developer) {
+        this.developer = developer;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

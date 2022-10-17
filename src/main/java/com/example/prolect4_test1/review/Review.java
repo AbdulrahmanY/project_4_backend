@@ -2,6 +2,7 @@ package com.example.prolect4_test1.review;
 
 import com.example.prolect4_test1.game.Game;
 import com.example.prolect4_test1.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
@@ -15,6 +16,7 @@ public class Review {
 
     private String comment;
 
+    @JsonIgnoreProperties("reviews")
     @ManyToOne(fetch=FetchType.EAGER,optional = true)
     private User user;
 

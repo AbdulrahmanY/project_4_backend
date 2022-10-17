@@ -27,9 +27,14 @@ public class UserController {
     }
 
 
-    @PutMapping("/{id}")
-    public void updateUser(@PathVariable String id, @RequestBody User data){
-        userService.updateUser(id, data);
+    @PutMapping("/user/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable String id, @RequestBody User data){
+        return userService.updateUser(id, data);
+    }
+
+    @PutMapping("/user/image/{id}")
+    public User updateProfileImage(@PathVariable String id, @RequestBody User data){
+        return userService.updateProfileImage(id, data);
     }
 
     @DeleteMapping("/{id}")
@@ -38,12 +43,26 @@ public class UserController {
     }
 
     @PostMapping
-    public User register(@RequestBody User user){
-        return userService.register(user);
+    public ResponseEntity<?> register(@RequestBody User data){
+        return userService.register(data);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user){
-        return userService.login(user);
+    @PostMapping("/admin")
+    public User adminRegister(@RequestBody User user){
+        return userService.adminRegister(user);
+    }
+
+}
+class Form{
+    private User user;
+
+    private Long id_Role;
+
+    public User getUser() {
+        return user;
+    }
+
+    public Long getId_Role() {
+        return id_Role;
     }
 }

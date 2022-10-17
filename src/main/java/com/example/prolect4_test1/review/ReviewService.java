@@ -9,6 +9,7 @@ import com.example.prolect4_test1.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,6 +32,21 @@ public class ReviewService {
         Long review_id = Long.parseLong(id);
         return reviewRepo.findById(review_id).orElse(null);
     }
+
+    public List<Review> getAllCommentsByGameId(String id) {
+        Long id_Game = Long.parseLong(id);
+        List<Review> reviews = reviewRepo.findAll();
+        List<Review> comments = new ArrayList<>();
+        for (Review temp : reviews) {
+            if (temp.getGame() != null) {
+                if (temp.getGame().getId_Game() == id_Game) {
+                    comments.add(temp);
+                }
+            }
+        }
+        return comments;
+    }
+
 
     public void deleteReview(String id){
         Long review_id = Long.parseLong(id);

@@ -29,4 +29,14 @@ public class GenreController {
 
     @PostMapping
     public Genre addGenre(@RequestBody Genre genre){return genreService.addGenre(genre);}
+
+    @PutMapping("/{id}")
+    public void updateGenre(@PathVariable String id, @RequestBody Genre data){
+        genreService.updateGenre(id, data);
+    }
+
+//    @DeleteMapping("/{id}")
+//    public void deleteGenre(@PathVariable String id){
+//        genreService.deleteGenre(id);
+//    }
 }

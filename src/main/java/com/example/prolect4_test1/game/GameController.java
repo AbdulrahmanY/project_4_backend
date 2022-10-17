@@ -21,10 +21,13 @@ public class GameController {
     @GetMapping
     public List<Game> getGames(){return gameService.getGames();}
 
-    @GetMapping("/{name}")
-    public Game getGameName(@PathVariable String name){
-        return gameService.getGameName(name);
-    }
+//    @GetMapping("/{name}")
+//    public Game getGameName(@PathVariable String name){
+//        return gameService.getGameName(name);
+//    }
+
+    @GetMapping("/{id}")
+    public Game getGameId(@PathVariable String id){return gameService.getGameId(id);}
 
     @PostMapping
     public Game addGame(@RequestBody Game game){return gameService.addGame(game);}
@@ -38,4 +41,5 @@ public class GameController {
     public void deleteGame(@PathVariable String id){
         gameService.deleteGame(id);
     }
+
 }

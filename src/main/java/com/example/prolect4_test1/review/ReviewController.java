@@ -21,6 +21,11 @@ public class ReviewController {
     @GetMapping
     public List<Review> getReviews(){return reviewService.getReviews();}
 
+    @GetMapping("/game/{id}")
+    public List <Review> getAllCommentsByGameId(@PathVariable String id) {
+        return reviewService.getAllCommentsByGameId(id);
+    }
+
     @GetMapping("/{id}")
     public Review getReview(@PathVariable String id){return reviewService.getReviewId(id);}
 
